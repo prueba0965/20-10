@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Encuesta del Dolor</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-image: url('ABC.jpg'); /* Fondo con corazón */
+        background-repeat: repeat; /* Repetir el fondo en ambas direcciones */
+        background-size: 100px;
+        background-color: #c41616; /* Color de fondo de respaldo */
+        text-align: center;
+        margin-top: 50px;
+    }
+    .container {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #884b4b;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+        color: #333;
+    }
+    .rating-scale {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+    }
+    .rating-button {
+        padding: 10px;
+        border: 1px solid #ccc;
+        cursor: pointer;
+        border-radius: 4px;
+        background-color: #f0f0f0;
+        transition: background-color 0.3s ease;
+    }
+    .rating-button:hover {
+        background-color: #e0e0e0;
+    }
+    .rating-button.selected {
+        background-color: #4CAF50;
+        color: #fff;
+        border-color: #4CAF50;
+    }
+    button[type="button"] {
+        margin-top: 20px;
+        padding: 10px 20px;
+        background-color: #4CAF50;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    button[type="button"]:hover {
+        background-color: #45a049;
+    }
+    .error-message {
+        color: rgb(9, 9, 9);
+        margin-top: 10px;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>Encuesta del Dolor</h1>
+    <p>¿Cuánto me quiere del 1 al 10?</p>
+    <div class="rating-scale">
+        <div class="rating-button" data-value="1">1</div>
+        <div class="rating-button" data-value="2">2</div>
+        <div class="rating-button" data-value="3">3</div>
+        <div class="rating-button" data-value="4">4</div>
+        <div class="rating-button" data-value="5">5</div>
+        <div class="rating-button" data-value="6">6</div>
+        <div class="rating-button" data-value="7">7</div>
+        <div class="rating-button" data-value="8">8</div>
+        <div class="rating-button" data-value="9">9</div>
+        <div class="rating-button" data-value="10">10</div>
+    </div>
+    <button type="button" id="submit-button" disabled>Enviar</button>
+    <div id="error-message" class="error-message"></div>
+</div>
+
+<script>
+    const ratingButtons = document.querySelectorAll('.rating-button');
+    const submitButton = document.getElementById('submit-button');
+    const errorMessage = document.getElementById('error-message');
+
+    let selectedRating = null;
+
+    ratingButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Remove 'selected' class from all buttons
+            ratingButtons.forEach(btn => btn.classList.remove('selected'));
+
+            // Add 'selected' class to the clicked button
+            button.classList.add('selected');
+
+            // Update selectedRating variable
+            selectedRating = parseInt(button.getAttribute('data-value'));
+
+            // Check if selected rating is 10
+            if (selectedRating === 10) {
+                errorMessage.textContent = '';
+                submitButton.removeAttribute('disabled');
+            } else {
+                errorMessage.textContent = 'Ese no bebé';
+                submitButton.setAttribute('disabled', 'true');
+            }
+        });
+    });
+
+    submitButton.addEventListener('click', () => {
+        if (selectedRating === 10) {
+            // Redirigir a una página personalizada
+            window.location.href = 'pagina-personalizada.html';
+        } else {
+            alert('Por favor selecciona el número 10 para continuar.');
+        }
+    });
+</script>
+
+</body>
+</html>
